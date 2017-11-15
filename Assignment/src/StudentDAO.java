@@ -100,6 +100,8 @@ public class StudentDAO {
         Connection dbConnection = null;
         Statement statement = null;
 
+
+        // firstly check if row exists and returns anything if so delete it if not return false and display message "Row doesnt exists"
         String query = "DELETE FROM students WHERE Address = '"+newStudent.getAddress()+"';";
 
         try {
@@ -112,7 +114,9 @@ public class StudentDAO {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); }
+            System.out.println(e.getMessage());
+        }
+
         finally {
             if (statement != null) {
                 statement.close();

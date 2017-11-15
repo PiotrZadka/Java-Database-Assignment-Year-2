@@ -12,10 +12,11 @@ public class DatabaseTester {
                 15684574,"Software Engineering","01-09-2015",2560,"jack@email.com");
 
         try{
-            allStudents = dao.getAllStudents();
+            //allStudents = dao.getAllStudents();
             //dao.getStudent("Sandra");
             //dao.insertStu(Student1);
-            //dao.deleteStu(Student1);
+            dao.deleteStu(Student1);
+
             //dao.updateStu(Student1);
 
             //TODO
