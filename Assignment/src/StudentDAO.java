@@ -65,10 +65,9 @@ public class StudentDAO {
             }
         }
         return allStudents;
-        //array of students
     }
 
-    public void insertStu(Student newStudent) throws SQLException{
+    public boolean insertStu(Student newStudent) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
 
@@ -85,7 +84,10 @@ public class StudentDAO {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); }
+            System.out.println(e.getMessage());
+            return false;
+        }
+
         finally {
             if (statement != null) {
                 statement.close();
@@ -94,27 +96,36 @@ public class StudentDAO {
                 dbConnection.close();
             }
         }
+        return true;
     }
 
-    public void deleteStu(Student newStudent) throws SQLException{
+    public boolean deleteStu(Student newStudent) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
+        ResultSet resultset = null;
+        int rowCount = 0;
 
-
-        // firstly check if row exists and returns anything if so delete it if not return false and display message "Row doesnt exists"
+        // Firstly check if row exists and returns anything if so delete it if not return false and display message "Row doesn't exists"
+        String queryV = "SELECT COUNT (*) from students WHERE Address = '"+newStudent.getAddress()+"';";
         String query = "DELETE FROM students WHERE Address = '"+newStudent.getAddress()+"';";
 
         try {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
+            resultset = statement.executeQuery(queryV);
+            resultset.next();
+            rowCount = resultset.getInt(1);
 
-            System.out.println("\n"+query);
-
-            statement.executeUpdate(query);
-
-
+            if(rowCount == 0){
+                return false;
+            }
+            else{
+                System.out.println("\n"+query);
+                statement.executeUpdate(query);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return false;
         }
 
         finally {
@@ -125,12 +136,14 @@ public class StudentDAO {
                 dbConnection.close();
             }
         }
+        return true;
     }
 
     public static void getStudent(String stuName) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
         ResultSet resultset = null;
+
 
         String query = "\nSELECT Name, StudentNumber, CourseTitle FROM students where Name = '"+stuName+"';";
 
@@ -159,23 +172,36 @@ public class StudentDAO {
         }
     }
 
-    public void updateStu(Student newStudent) throws SQLException{
+    public boolean updateStu(Student newStudent) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
+        ResultSet resultset = null;
+        int rowCount = 0;
 
-        String query = "UPDATE students SET Name = 'Josh McEwen' WHERE Name = '"+newStudent.getName()+"';";
+        String queryV = "SELECT COUNT (*) from students WHERE Name = '"+newStudent.getName()+"';";
+        String query = "UPDATE students SET Name = 'Josh' WHERE Name = '"+newStudent.getName()+"';";
 
         try {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
+            resultset = statement.executeQuery(queryV);
+            resultset.next();
+            rowCount = resultset.getInt(1);
 
-            System.out.println("\n"+query);
+            if(rowCount == 0){
+                return false;
+            }
+            else{
+                System.out.println("\n"+query);
+                statement.executeUpdate(query);
+            }
 
-            statement.executeUpdate(query);
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); }
+            System.out.println(e.getMessage());
+            return false;
+        }
         finally {
             if (statement != null) {
                 statement.close();
@@ -184,6 +210,7 @@ public class StudentDAO {
                 dbConnection.close();
             }
         }
+        return true;
     }
 
 }
