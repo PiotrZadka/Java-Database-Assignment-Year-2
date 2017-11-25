@@ -2,9 +2,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class StudentDAO {
+    Connection dbConnection = null;
+    Statement s = null;
 
-    private static Connection getDBConnection() {
-        Connection dbConnection = null;
+    public Connection getDBConnection() {
         try {
             Class.forName("org.sqlite.JDBC");
         }
@@ -14,7 +15,8 @@ public class StudentDAO {
         try {
             String dbURL = "jdbc:sqlite:studentdb.sqlite";
             dbConnection = DriverManager.getConnection(dbURL);
-            return dbConnection;
+            s = dbConnection.createStatement();
+
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -22,7 +24,22 @@ public class StudentDAO {
         return dbConnection;
     }
 
-    public ArrayList<Student> getAllStudents() throws SQLException{
+    public void closeConnection(){
+        try{
+            if(s!=null){
+                s.close();
+            }
+            if(dbConnection!=null){
+                dbConnection.close();
+            }
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public  ArrayList<Student> getAllStudents(){
         Connection dbConnection = null;
         Statement statement = null;
         ResultSet resultset = null;
@@ -33,7 +50,6 @@ public class StudentDAO {
         try{
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
-            System.out.println(query);
             resultset = statement.executeQuery(query);
 
             while (resultset.next()) {
@@ -55,15 +71,7 @@ public class StudentDAO {
         catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        finally {
-            if (resultset != null) { resultset.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (dbConnection != null) { dbConnection.close();
-            }
-        }
+        closeConnection();
         return allStudents;
     }
 
@@ -74,12 +82,10 @@ public class StudentDAO {
         String query = "INSERT INTO students (Name, Gender, DOB, Address, Postcode, StudentNumber, CourseTitle, StartDate, Bursary, Email) " +
                 "VALUES ('"+newStudent.getName()+"','"+newStudent.getGender()+"','"+newStudent.getDob()+"','"+newStudent.getAddress()+"','"+newStudent.getPostcode()+"'" +
                 ","+newStudent.getStudentNumber()+",'"+newStudent.getCourseTitle()+"','"+newStudent.getStartDate()+"',"+newStudent.getBursary()+",'"+newStudent.getEmail()+"');";
-
+        System.out.println("\nQUERY 3: "+query);
         try {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
-
-            System.out.println("\n"+query);
             statement.executeUpdate(query);
 
 
@@ -87,15 +93,7 @@ public class StudentDAO {
             System.out.println(e.getMessage());
             return false;
         }
-
-        finally {
-            if (statement != null) {
-                statement.close();
-            }
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
-        }
+        closeConnection();
         return true;
     }
 
@@ -108,7 +106,7 @@ public class StudentDAO {
         // Firstly check if row exists and returns anything if so delete it if not return false and display message "Row doesn't exists"
         String queryV = "SELECT COUNT (*) from students WHERE Address = '"+newStudent.getAddress()+"';";
         String query = "DELETE FROM students WHERE Address = '"+newStudent.getAddress()+"';";
-
+        System.out.println("\nQUERY 5: "+query);
         try {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
@@ -120,37 +118,27 @@ public class StudentDAO {
                 return false;
             }
             else{
-                System.out.println("\n"+query);
                 statement.executeUpdate(query);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
-
-        finally {
-            if (statement != null) {
-                statement.close();
-            }
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
-        }
+        closeConnection();
         return true;
     }
 
-    public static void getStudent(String stuName) throws SQLException{
+    public void getStudent(String stuName) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
         ResultSet resultset = null;
 
 
-        String query = "\nSELECT Name, StudentNumber, CourseTitle FROM students where Name = '"+stuName+"';";
-
+        String query = "SELECT Name, StudentNumber, CourseTitle FROM students where Name = '"+stuName+"';";
+        System.out.println("\nQUERY 2: "+query);
         try{
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
-            System.out.println(query);
 
             resultset = statement.executeQuery(query);
             while (resultset.next()) { System.out.println(resultset.getString("Name")+" "
@@ -161,15 +149,7 @@ public class StudentDAO {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        finally {
-            if (resultset != null) { resultset.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (dbConnection != null) { dbConnection.close();
-            }
-        }
+        closeConnection();
     }
 
     public boolean updateStu(Student newStudent) throws SQLException{
@@ -178,9 +158,9 @@ public class StudentDAO {
         ResultSet resultset = null;
         int rowCount = 0;
 
-        String queryV = "SELECT COUNT (*) from students WHERE Name = '"+newStudent.getName()+"';";
-        String query = "UPDATE students SET Name = 'Josh' WHERE Name = '"+newStudent.getName()+"';";
-
+        String queryV = "SELECT COUNT (*) from students WHERE Address = '"+newStudent.getAddress()+"';";
+        String query = "UPDATE students SET Name = 'Josh' WHERE Address = '"+newStudent.getAddress()+"';";
+        System.out.println("\nQUERY 4: "+query);
         try {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
@@ -192,7 +172,6 @@ public class StudentDAO {
                 return false;
             }
             else{
-                System.out.println("\n"+query);
                 statement.executeUpdate(query);
             }
 
@@ -202,14 +181,7 @@ public class StudentDAO {
             System.out.println(e.getMessage());
             return false;
         }
-        finally {
-            if (statement != null) {
-                statement.close();
-            }
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
-        }
+        closeConnection();
         return true;
     }
 
