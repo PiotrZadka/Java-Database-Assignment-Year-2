@@ -3,6 +3,9 @@ public class Student extends Person {
     String courseTitle, StartDate, email;
     float bursary;
 
+    Student(){
+
+    }
     Student(String name, String gender, String dob, String address, String postcode, int studentNumber, String courseTitle,
             String StartDate, float bursary, String email){
 

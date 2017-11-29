@@ -5,13 +5,13 @@ import java.net.InetSocketAddress;
 public class Controller {
     public static void main(String[] args) {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(8005),0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
             server.createContext("/", new defaultHandler());
             server.createContext("/show", new showHandler());
             server.createContext("/get-json", new GetJsonHandler());
-            // deleteHandler
+            server.createContext("/insert", new insertHandler());
             // updateHandler
-            // insertHandler
+            // deleteHandler
 
             server.start();
             System.out.println("Server running on port 8005");

@@ -1,7 +1,9 @@
 public class Person {
     String name, gender, dob, address, postcode;
 
+    Person(){
 
+    }
     Person(String name, String gender, String dob, String address, String postcode){
         this.name = name;
         this.gender = gender;

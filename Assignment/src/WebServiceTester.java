@@ -9,7 +9,7 @@ public class WebServiceTester {
 
     public static void main(String[] args) {
         gson = new Gson();
-        System.out.println(getStudents());
+        System.out.println("Students = "+getStudents());
 
         //postStudent();
         //updateStudent();
@@ -22,7 +22,7 @@ public class WebServiceTester {
     private static StringBuffer getStudents() {
         StringBuffer response = new StringBuffer();
         try {
-            URL url = new URL("http://localhost:8005/get-json");
+            URL url = new URL("http://localhost:8000/get-json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String output;
             while ((output = reader.readLine()) != null) {
