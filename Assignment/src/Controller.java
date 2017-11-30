@@ -10,8 +10,8 @@ public class Controller {
             server.createContext("/show", new showHandler());
             server.createContext("/get-json", new GetJsonHandler());
             server.createContext("/insert", new insertHandler());
+            server.createContext("/delete",new deleteHandler());
             // updateHandler
-            // deleteHandler
 
             server.start();
             System.out.println("Server running on port 8005");

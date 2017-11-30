@@ -14,7 +14,6 @@ public class WebServiceTester {
         //postStudent();
         //updateStudent();
         //deleteStudent():
-        //getStudents();
         //getStudent(14056838);
 
     }

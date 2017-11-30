@@ -1,5 +1,0 @@
-1. Check GetJsonHandler - If this is correct way to output JSON format of all STUDENTS to browser page
-2. Check WebServiceTester - Ask about input GSON through RESTfull gson FORMAT (I've managed to use the code from assignment guide for getStudents() in JSON format but not sure how to read back from browser the JSON format and insert into java DB)
-3. Check Controller - Ask if I create server.createContext("/delete",new deleteHandler());
-and I visit that page in browser should it delete a specific row in DB?
-4. Check DatabaseTester - Ask if if statements are correct or should I include it in within StudentDAO method
