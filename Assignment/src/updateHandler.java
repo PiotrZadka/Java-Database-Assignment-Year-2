@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class insertHandler implements HttpHandler {
+public class updateHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
         Gson gson = new Gson();
 
@@ -28,12 +28,12 @@ public class insertHandler implements HttpHandler {
 
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
         try {
-            dao.insertStu(student);
+            dao.updateStu(student);
             he.sendResponseHeaders(200, 0); //HTTP 200 (OK)
-            out.write("Student added!");
+            out.write("Student updated!");
         } catch (SQLException se) {
             he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
-            out.write("Error adding Student");
+            out.write("Error updating Student");
         }
         out.close();
     }

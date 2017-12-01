@@ -23,16 +23,16 @@ public class deleteHandler implements HttpHandler {
             deleteResult.put(URLDecoder.decode(pair.split("=")[0], "UTF-8"), URLDecoder.decode(pair.split("=")[1], "UTF-8"));
         }
         StudentDAO dao = new StudentDAO();
-        Student student4 = gson.fromJson(deleteResult.get("student"), Student.class);
+        Student student = gson.fromJson(deleteResult.get("student"), Student.class);
 
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
         try {
-            dao.deleteStu(student4);
+            dao.deleteStu(student);
             he.sendResponseHeaders(200, 0); //HTTP 200 (OK)
-            out.write("Student Deleted!");
+            out.write("Student deleted!");
         } catch (SQLException se) {
             he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
-            out.write("Error Deleting Student");
+            out.write("Error deleting Student");
         }
         out.close();
     }

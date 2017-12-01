@@ -11,11 +11,11 @@ public class Controller {
             server.createContext("/get-json", new GetJsonHandler());
             server.createContext("/insert", new insertHandler());
             server.createContext("/delete",new deleteHandler());
-            // updateHandler
+            server.createContext("/update",new updateHandler());
 
             server.start();
-            System.out.println("Server running on port 8005");
-            System.out.println("To check the output please type in browser http://localhost:8005/");
+            System.out.println("Server running on port 8000");
+            System.out.println("To check the output please type in browser http://localhost:8000/");
         }
         catch(IOException ioe){
             System.err.println("IOException: "+ioe.getMessage());
