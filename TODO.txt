@@ -1,4 +1,3 @@
 1. Check studentDAO if there is better way to delete/update requests. Not only delete based on address (deleteStu)
-2. Add updateHandler
 3. Webservice tester class.
 4. apikey
