@@ -56,8 +56,8 @@ public class DatabaseTester {
                 System.out.println("Row failed to update.");
             }
 
-            // DELETING PREVIOUSLY INSERTED STUDENT
-            if(dao.deleteStu(Student2)){
+            // DELETING PREVIOUSLY INSERTED STUDENT ID
+            if(dao.deleteStu(Student2.getStudentNumber())){
                 //if row exists and can be deleted
                 System.out.println("Row successfully deleted!");
             }

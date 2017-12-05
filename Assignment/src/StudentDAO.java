@@ -97,15 +97,15 @@ public class StudentDAO {
         return true;
     }
 
-    public boolean deleteStu(Student newStudent) throws SQLException{
+    public boolean deleteStu(int stuNumber) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
         ResultSet resultset = null;
         int rowCount = 0;
 
         // Firstly check if row exists and returns anything if so delete it if not return false and display message "Row doesn't exists"
-        String queryV = "SELECT COUNT (*) from students WHERE Address = '"+newStudent.getAddress()+"';";
-        String query = "DELETE FROM students WHERE Address = '"+newStudent.getAddress()+"';";
+        String queryV = "SELECT COUNT (*) from students WHERE StudentNumber = '"+stuNumber+"';";
+        String query = "DELETE FROM students WHERE StudentNumber = '"+stuNumber+"';";
         System.out.println("\nQUERY 5: "+query);
         try {
             dbConnection = getDBConnection();
@@ -183,6 +183,16 @@ public class StudentDAO {
         }
         closeConnection();
         return true;
+    }
+
+    public Boolean checkLoginCredentials(String username, String password) throws SQLException {
+        //TODO
+        return false;
+    }
+
+    public boolean checkApiKey(String key) throws SQLException {
+        //TODO
+        return false;
     }
 
 }
