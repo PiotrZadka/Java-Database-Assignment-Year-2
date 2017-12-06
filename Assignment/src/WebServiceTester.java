@@ -14,9 +14,9 @@ public class WebServiceTester {
 
 
         try {
-            //postStudent();
-            //deleteStudent();
-            getStudent(15438568);
+            //postStudent(); //works
+            //deleteStudent(); //works
+            getStudent(15438568); // TODO
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,6 +43,7 @@ public class WebServiceTester {
         return response;
     }
 
+    //TO FIX
     private static StringBuffer getStudent(int studentId) {
         StringBuffer response = new StringBuffer();
         response = null;
