@@ -128,28 +128,41 @@ public class StudentDAO {
         return true;
     }
 
-    public void getStudent(String stuName) throws SQLException{
+    public Student getStudent(int stuNumber) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
         ResultSet resultset = null;
+        Student temp = null;
 
-
-        String query = "SELECT Name, StudentNumber, CourseTitle FROM students where Name = '"+stuName+"';";
+        String query = "SELECT * FROM students where StudentNumber = '"+stuNumber+"';";
         System.out.println("\nQUERY 2: "+query);
         try{
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
 
             resultset = statement.executeQuery(query);
-            while (resultset.next()) { System.out.println(resultset.getString("Name")+" "
-                    +resultset.getInt("StudentNumber")+" "
-                    +resultset.getString("CourseTitle"));
+            while (resultset.next()) {
+                String name = resultset.getString("Name");
+                String gender = resultset.getString("Gender");
+                String dob = resultset.getString("DOB");
+                String address = resultset.getString("Address");
+                String postcode = resultset.getString("Postcode");
+                int  studentNumber = resultset.getInt("StudentNumber");
+                String courseTitle = resultset.getString("CourseTitle");
+                String startDate = resultset.getString("StartDate");
+                Float bursary = resultset.getFloat("Bursary");
+                String email = resultset.getString("Email");
+
+                temp = new Student(name,gender,dob,address,postcode,studentNumber,courseTitle,startDate,bursary,email);
+
             }
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         closeConnection();
+        return temp;
+
     }
 
     public boolean updateStu(Student newStudent) throws SQLException{

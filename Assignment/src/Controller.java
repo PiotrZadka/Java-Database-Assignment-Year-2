@@ -7,7 +7,8 @@ public class Controller {
         try {
             HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
             server.createContext("/", new defaultHandler());
-            server.createContext("/show", new showHandler());
+            server.createContext("/showall", new showAllHandler());
+            server.createContext("/showone", new displayStudentHandler());
             server.createContext("/get-json", new GetJsonHandler());
             server.createContext("/insert", new insertHandler());
             server.createContext("/delete",new deleteHandler());

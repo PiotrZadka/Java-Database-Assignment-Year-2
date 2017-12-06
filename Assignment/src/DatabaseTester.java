@@ -26,7 +26,7 @@ public class DatabaseTester {
             System.out.println(myJson);
 
             // DISPLAY NAMED STUDENT
-            dao.getStudent("Sandra");
+            dao.getStudent(15438568);
 
             // INSERTING NEW STUDENTS TO DATABASE (Student2 will be deleted later using deleteStu() )
             if(dao.insertStu(Student1)) {

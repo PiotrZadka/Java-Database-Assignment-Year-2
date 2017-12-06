@@ -14,7 +14,9 @@ public class WebServiceTester {
 
 
         try {
-            postStudent();
+            //postStudent();
+            //deleteStudent();
+            getStudent(15438568);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,12 +46,22 @@ public class WebServiceTester {
     private static StringBuffer getStudent(int studentId) {
         StringBuffer response = new StringBuffer();
         response = null;
-        //put your code here...
+        try {
+            URL url = new URL("http://localhost:8000/showone");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String output;
+            while ((output = reader.readLine()) != null) {
+                response.append(output);
+            }
+            reader.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return response;
     }
 
     private static void postStudent() throws IOException {
-        String urlParameters = "Name=Test&Gender=M&DOB=20-20-2020&Address=Manchester&Postcode=TES TES&StudentNumber=00000000&CourseTitle=TEST&StartDate=20-20-2020&Bursary=0000&Email=test@email.com";
+        String urlParameters = "student={'studentNumber':123456,'courseTitle':'TEST','StartDate':'10-10-1010','email':'test@email.com','bursary':1000.0,'name':'Test','gender':'T','dob':'10-10-1010','address':'TEST','postcode':'TES TES'}";
         URL url;
         url = new URL("http://localhost:8000/insert");
 
@@ -71,7 +83,7 @@ public class WebServiceTester {
         String response = "";
         String line;
         int responseCode = conn.getResponseCode();
-        System.out.println("responseCode = " + responseCode);
+        System.out.println("\nresponseCode = " + responseCode);
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader br = new BufferedReader(
@@ -81,7 +93,7 @@ public class WebServiceTester {
             }
         }
         System.out.println("response = " + response);
-        System.out.println("Insert Done!!");
+        System.out.println("Student Inserted!");
     }
 
 
@@ -91,7 +103,39 @@ public class WebServiceTester {
 
 
     private static void deleteStudent() throws IOException {
-        //TODO
+        String urlParameters = "StudentNumber=123456";
+        URL url;
+        url = new URL("http://localhost:8000/delete");
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(15000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("POST");
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
+
+        OutputStream os = conn.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+        writer.write(urlParameters);
+
+        writer.flush();
+        writer.close();
+        os.close();
+
+        String response = "";
+        String line;
+        int responseCode = conn.getResponseCode();
+        System.out.println("\nresponseCode = " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream(), Charset.forName("UTF-8")));
+            while ((line = br.readLine()) != null) {
+                response += line;
+            }
+        }
+        System.out.println("response = " + response);
+        System.out.println("Student Deleted!");
     }
 
 }

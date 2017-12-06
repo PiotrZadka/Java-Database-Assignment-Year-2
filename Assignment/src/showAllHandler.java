@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class showHandler implements HttpHandler {
+public class showAllHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
         final String head =
                 "<html><head></head><body><table>"
                         + "<tr>"
-                        + "<th>Name</th><th>Email</th><th>DOB</th><th>Address</th><th>Postcode</th><th>Student Number</th><th>Course Title</th><th>Start Date</th><th>Bursary</th><th>Email</th>"
+                        + "<th>Name</th><th>StudentNumber</th><th>DOB</th><th>Address</th><th>Postcode</th><th>Student Number</th><th>Course Title</th><th>Start Date</th><th>Bursary</th><th>Email</th>"
                         + "</tr>";
         final String foot =
                 "</table></body></html>";
