@@ -25,8 +25,18 @@ public class DatabaseTester {
             System.out.println("QUERY 1(JSON): SELECT * FROM STUDENTS");
             System.out.println(myJson);
 
-            // DISPLAY NAMED STUDENT
-            dao.getStudent(15438568);
+            // DISPLAY STUDENT BY ID
+            Student studentID = dao.getStudent(14056838);
+            String myJson2 = gson.toJson(studentID);
+            System.out.println("Student with number "+studentID.getStudentNumber()+" in JSON format:");
+            System.out.println(myJson2);
+
+            System.out.println("\nMy organised display:");
+            System.out.println("Student ID = "+studentID.getStudentNumber()+"\nName = "+studentID.getName()+"\nCourse Title = "+studentID.getCourseTitle()+"\nStart Date = "+studentID.getStartDate()
+                    +"\nEmail = "+studentID.getEmail()+"\nBursary = "+studentID.getBursary()+"\nGender = "+studentID.getGender()+"\nDate of Birth = "+studentID.getDob()
+                    +"\nAddress = "+studentID.getAddress()+"\nPostcode = "+studentID.getPostcode());
+
+
 
             // INSERTING NEW STUDENTS TO DATABASE (Student2 will be deleted later using deleteStu() )
             if(dao.insertStu(Student1)) {

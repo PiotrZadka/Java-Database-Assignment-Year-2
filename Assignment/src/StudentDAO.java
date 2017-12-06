@@ -154,7 +154,6 @@ public class StudentDAO {
                 String email = resultset.getString("Email");
 
                 temp = new Student(name,gender,dob,address,postcode,studentNumber,courseTitle,startDate,bursary,email);
-
             }
         }
         catch (SQLException e) {
