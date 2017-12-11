@@ -22,6 +22,3 @@ public class GetJsonHandler implements HttpHandler {
         os.close();
     }
 }
-
-
-// NOT SURE IF THIS IS RIGHT. LOOKS GOOD BUT NEED TO ASK

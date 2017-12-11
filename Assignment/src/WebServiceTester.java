@@ -10,11 +10,11 @@ public class WebServiceTester {
 
     public static void main(String[] args) {
         gson = new Gson();
-        System.out.println("Students = "+getStudents());
+        System.out.println("Students JSON = "+getStudents());
 
 
         try {
-            //getStudent(14056838); // TODO
+            System.out.println(getStudent(154)); // TODO
             //postStudent(); //works
             //deleteStudent(); //works
             //updateStudent(); //works
@@ -43,7 +43,6 @@ public class WebServiceTester {
     //TO FIX
     private static StringBuffer getStudent(int studentId) {
         StringBuffer response = new StringBuffer();
-        response = null;
         try {
             URL url = new URL("http://localhost:8000/showone");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));

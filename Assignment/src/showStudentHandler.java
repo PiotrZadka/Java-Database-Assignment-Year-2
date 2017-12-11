@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 
 //TO FIX
-public class displayStudentHandler implements HttpHandler {
+public class showStudentHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
 
         final String head =
                 "<html><head></head><body><table>"
                         + "<tr>"
-                        + "<th>Name</th><th>Email</th><th>CourseTitle</th>"
+                        + "<th>Student ID</th><th>Name</th><th>Email</th><th>DOB</th><th>Address</th><th>Postcode</th><th>Course Title</th><th>Start Date</th><th>Bursary</th>"
                         + "</tr>";
         final String foot =
                 "</table></body></html>";
@@ -23,10 +23,20 @@ public class displayStudentHandler implements HttpHandler {
         StudentDAO dao = new StudentDAO();
 
         try {
-            Student s = dao.getStudent(15438568);
+            Student s = dao.getStudent(123);
             he.sendResponseHeaders(200, 0);
             out.write(head);
-            out.write("<tr><td>" + s.getName() + "</td><td>" + s.getEmail() + "</td><td>" + s.getCourseTitle() + "</td>");
+            out.write("<tr><td>"
+                    + s.getStudentNumber() + "</td><td>"
+                    + s.getName() + "</td><td>"
+                    + s.getEmail() + "</td><td>"
+                    + s.getDob() + "</td><td>"
+                    + s.getAddress() + "</td><td>"
+                    + s.getPostcode() + "</td><td>"
+                    + s.getCourseTitle() + "</td><td>"
+                    + s.getStartDate() + "</td><td>"
+                    + s.getBursary() + "</td><td>"
+            );
             out.write(foot);
         }
         catch (SQLException se){
