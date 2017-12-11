@@ -1,0 +1,3 @@
+1. Should RESTClient only handle JSON format?
+2. Delete/Update/Insert Student() should work with urls like "param=value&param2=value2" or is it fine with "jsonName={'param':value,'param2':value2}" ? or both?
+3. GetStudent(ID) 

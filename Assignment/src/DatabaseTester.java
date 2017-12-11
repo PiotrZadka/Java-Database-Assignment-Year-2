@@ -12,6 +12,9 @@ public class DatabaseTester {
                 15684574,"Software Engineering","01-09-2015",2560,"jack@email.com");
         Student Student2 = new Student("Khuram","M","01-01-1991","Salford","SF2 2DD",
                 12687656,"Art","11-02-2014",1221,"khuram@email.com");
+        // THIS STUDENT OBJECT IS SIMILAR TO STUDENT1 THE ONLY DIFFERENCE IS NAME = JOSH NOT JACK
+        Student Student3 = new Student("Josh","M","21-02-1994","Gorton","GR2 3DS",
+                15684574,"Software Engineering","01-09-2015",2560,"jack@email.com");
 
         //////////////////////////////////////////////////
         // BELOW YOU CAN FIND ALL THE TESTING CALLOUTS
@@ -59,7 +62,7 @@ public class DatabaseTester {
 
             // UPDATING EXISTING STUDENTS WITH NEW NAME
             // CHANGE "JACK" TO "JOSH"
-            if(dao.updateStu(Student1)){
+            if(dao.updateStu(Student3)){
                 System.out.println("Row successfully updated");
             }
             else{

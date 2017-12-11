@@ -24,7 +24,7 @@ public class deleteHandler implements HttpHandler {
             deleteResult.put(URLDecoder.decode(pair.split("=")[0], "UTF-8"), URLDecoder.decode(pair.split("=")[1], "UTF-8"));
         }
         StudentDAO dao = new StudentDAO();
-        int studentNo = Integer.parseInt(deleteResult.get("StudentNumber"));
+        int studentNo = Integer.parseInt(deleteResult.get("ID"));
 
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
         try {

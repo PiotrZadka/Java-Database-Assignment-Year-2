@@ -170,8 +170,19 @@ public class StudentDAO {
         ResultSet resultset = null;
         int rowCount = 0;
 
-        String queryV = "SELECT COUNT (*) from students WHERE Address = '"+newStudent.getAddress()+"';";
-        String query = "UPDATE students SET Name = 'Josh' WHERE Address = '"+newStudent.getAddress()+"';";
+        String queryV = "SELECT COUNT (*) from students WHERE StudentNumber = '"+newStudent.getStudentNumber()+"';";
+        String query = "UPDATE students SET " +
+                "Name = '"+newStudent.getName()+"',"+
+                "Gender = '"+newStudent.getGender()+"', "+
+                "DOB = '"+newStudent.getDob()+"', "+
+                "Address = '"+newStudent.getAddress()+"', "+
+                "Postcode = '"+newStudent.getPostcode()+"', "+
+                "CourseTitle = '"+newStudent.getCourseTitle()+"', "+
+                "StartDate = '"+newStudent.getStartDate()+"', "+
+                "Bursary = '"+newStudent.getBursary()+"', "+
+                "Email = '"+newStudent.getEmail()+"' "+
+                "WHERE StudentNumber = '"+newStudent.getStudentNumber()+"';";
+
         System.out.println("\nQUERY 4: "+query);
         try {
             dbConnection = getDBConnection();

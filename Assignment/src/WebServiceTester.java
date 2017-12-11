@@ -14,17 +14,13 @@ public class WebServiceTester {
 
 
         try {
+            //getStudent(14056838); // TODO
             //postStudent(); //works
             //deleteStudent(); //works
-            getStudent(15438568); // TODO
+            //updateStudent(); //works
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //getStudent(14056838);
-        //updateStudent();
-        //deleteStudent():
-
     }
 
     private static StringBuffer getStudents() {
@@ -35,6 +31,7 @@ public class WebServiceTester {
             String output;
             while ((output = reader.readLine()) != null) {
                 response.append(output);
+
             }
             reader.close();
         } catch (Exception e) {
@@ -99,12 +96,44 @@ public class WebServiceTester {
 
 
     private static void updateStudent() throws IOException {
-        //TODO
+        String urlParameters = "student={'studentNumber':15684574,'courseTitle':'Software Engineering','StartDate':'01-09-2015','email':'jack@email.com','bursary':2560.0,'name':'Jack','gender':'M','dob':'21-02-1994','address':'Gorton','postcode':'GR2 3DS'}";
+        URL url;
+        url = new URL("http://localhost:8000/update");
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(15000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("POST");
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
+
+        OutputStream os = conn.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+        writer.write(urlParameters);
+
+        writer.flush();
+        writer.close();
+        os.close();
+
+        String response = "";
+        String line;
+        int responseCode = conn.getResponseCode();
+        System.out.println("\nresponseCode = " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream(), Charset.forName("UTF-8")));
+            while ((line = br.readLine()) != null) {
+                response += line;
+            }
+        }
+        System.out.println("response = " + response);
+        System.out.println("Student Updated!");
     }
 
 
     private static void deleteStudent() throws IOException {
-        String urlParameters = "StudentNumber=123456";
+        String urlParameters = "ID=15684574";
         URL url;
         url = new URL("http://localhost:8000/delete");
 

@@ -11,7 +11,7 @@ public class updateHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
         Gson gson = new Gson();
 
-        HashMap<String, String> insertResult = new HashMap<String, String>();
+        HashMap<String, String> updateResult = new HashMap<String, String>();
         BufferedReader in = new BufferedReader(new InputStreamReader(he.getRequestBody()));
         String line = "";
         String request = "";
@@ -21,10 +21,10 @@ public class updateHandler implements HttpHandler {
         String[] pairs = request.split("&");
         for (int i = 0; i < pairs.length; i++) {
             String pair = pairs[i];
-            insertResult.put(URLDecoder.decode(pair.split("=")[0], "UTF-8"), URLDecoder.decode(pair.split("=")[1], "UTF-8"));
+            updateResult.put(URLDecoder.decode(pair.split("=")[0], "UTF-8"), URLDecoder.decode(pair.split("=")[1], "UTF-8"));
         }
         StudentDAO dao = new StudentDAO();
-        Student student = gson.fromJson(insertResult.get("student"), Student.class);
+        Student student = gson.fromJson(updateResult.get("student"),Student.class);
 
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
         try {
