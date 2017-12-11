@@ -23,7 +23,7 @@ public class showStudentHandler implements HttpHandler {
         StudentDAO dao = new StudentDAO();
 
         try {
-            Student s = dao.getStudent(123);
+            Student s = dao.getStudent(14056838);
             he.sendResponseHeaders(200, 0);
             out.write(head);
             out.write("<tr><td>"

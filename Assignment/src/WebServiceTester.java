@@ -10,11 +10,11 @@ public class WebServiceTester {
 
     public static void main(String[] args) {
         gson = new Gson();
-        System.out.println("Students JSON = "+getStudents());
+        System.out.println("All Students = "+getStudents());
 
 
         try {
-            System.out.println(getStudent(154)); // TODO
+            System.out.println("Student = "+getStudent(14056838)); // Show in JSON or as String? Currently shows HTML string
             //postStudent(); //works
             //deleteStudent(); //works
             //updateStudent(); //works
@@ -26,7 +26,7 @@ public class WebServiceTester {
     private static StringBuffer getStudents() {
         StringBuffer response = new StringBuffer();
         try {
-            URL url = new URL("http://localhost:8000/get-json");
+            URL url = new URL("http://localhost:8000/showall");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String output;
             while ((output = reader.readLine()) != null) {

@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class showAllHandler implements HttpHandler {
@@ -17,7 +18,9 @@ public class showAllHandler implements HttpHandler {
                 "</table></body></html>";
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
         StudentDAO dao = new StudentDAO();
-        ArrayList<Student> students = dao.getAllStudents();
+        ArrayList<Student> students = new ArrayList<>();
+        students = dao.getAllStudents();
+
         he.sendResponseHeaders(200, 0);
         out.write(head);
 
