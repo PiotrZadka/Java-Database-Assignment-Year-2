@@ -1,16 +1,31 @@
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 //TO FIX
 public class showStudentHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
+
+        HashMap<String, String> insertResult = new HashMap<String, String>();
+        BufferedReader in = new BufferedReader(new InputStreamReader(he.getRequestBody()));
+        String line = "";
+        String request = "";
+        while ((line = in.readLine()) != null) {
+            request = request + line;
+        }
+        String[] pairs = request.split("&");
+        for (int i = 0; i < pairs.length; i++) {
+            String pair = pairs[i];
+            insertResult.put(URLDecoder.decode(pair.split("=")[0], "UTF-8"), URLDecoder.decode(pair.split("=")[1], "UTF-8"));
+        }
+        int studentID = Integer.valueOf(insertResult.get("StudentNumber"));
 
         final String head =
                 "<html><head></head><body><table>"
@@ -23,7 +38,7 @@ public class showStudentHandler implements HttpHandler {
         StudentDAO dao = new StudentDAO();
 
         try {
-            Student s = dao.getStudent(14056838);
+            Student s = dao.getStudent(studentID);
             he.sendResponseHeaders(200, 0);
             out.write(head);
             out.write("<tr><td>"

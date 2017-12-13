@@ -14,7 +14,7 @@ public class WebServiceTester {
 
 
         try {
-            System.out.println("Student = "+getStudent(14056838)); // Show in JSON or as String? Currently shows HTML string
+            System.out.println("Student = "+getStudent(14056838)); // works!!! Need checking if String type for method is right instead of StringBuffer
             //postStudent(); //works
             //deleteStudent(); //works
             //updateStudent(); //works
@@ -26,7 +26,7 @@ public class WebServiceTester {
     private static StringBuffer getStudents() {
         StringBuffer response = new StringBuffer();
         try {
-            URL url = new URL("http://localhost:8000/showall");
+            URL url = new URL("http://localhost:8000/get-json-all-students");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String output;
             while ((output = reader.readLine()) != null) {
@@ -40,21 +40,38 @@ public class WebServiceTester {
         return response;
     }
 
-    //TO FIX
-    private static StringBuffer getStudent(int studentId) {
-        StringBuffer response = new StringBuffer();
-        try {
-            URL url = new URL("http://localhost:8000/showone");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String output;
-            while ((output = reader.readLine()) != null) {
-                response.append(output);
+
+    private static String getStudent(int studentId) throws IOException {
+
+        String urlParameters = "StudentNumber="+studentId+"";
+        URL url;
+        url = new URL("http://localhost:8000/get-json-one-student");
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(15000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("POST");
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
+
+        OutputStream os = conn.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+        writer.write(urlParameters);
+
+        writer.flush();
+        writer.close();
+        os.close();
+
+        String response = "";
+        String line;
+        int responseCode = conn.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) { BufferedReader br = new BufferedReader(
+                new InputStreamReader(conn.getInputStream(), Charset.forName("UTF-8")));
+            while ((line = br.readLine()) != null) { response += line;
             }
-            reader.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
         return response;
+
     }
 
     private static void postStudent() throws IOException {

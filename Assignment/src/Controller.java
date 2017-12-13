@@ -9,7 +9,8 @@ public class Controller {
             server.createContext("/", new defaultHandler());
             server.createContext("/showall", new showAllHandler());
             server.createContext("/showone", new showStudentHandler());
-            server.createContext("/get-json", new GetJsonHandler());
+            server.createContext("/get-json-all-students", new GetJsonAllStudentsHandler());
+            server.createContext("/get-json-one-student", new GetJsonOneStudentHandler());
             server.createContext("/insert", new insertHandler());
             server.createContext("/delete",new deleteHandler());
             server.createContext("/update",new updateHandler());

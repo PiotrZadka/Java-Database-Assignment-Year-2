@@ -14,3 +14,8 @@ ID=(any student ID that is in DB)
 -POST to /update from RESTClient WORKS! USE LINE BELOW (Based on ID)
 student={"studentNumber":15684574,"courseTitle":"Software Engineering","StartDate":"01-09-2015","email":"jack@email.com","bursary":2560.0,"name":"Jack","gender":"M","dob":"21-02-1994","address":"Gorton","postcode":"GR2 3DS"}
 
+-getStudent(any id) from console WORKS!
+-getStudents() from console WORKS!
+-POST to /get-json-one-student from RESTClient WORKS! USE LINE BELOW (based on ID)
+StudentNumber = "any number"
+

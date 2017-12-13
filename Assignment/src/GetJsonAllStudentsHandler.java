@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class GetJsonHandler implements HttpHandler {
+public class GetJsonAllStudentsHandler implements HttpHandler {
     Gson gson = new Gson();
     ArrayList<Student> allStudents = new ArrayList<>();
     StudentDAO dao = new StudentDAO();
