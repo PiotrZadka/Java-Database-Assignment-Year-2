@@ -21,7 +21,6 @@ public class DatabaseTester {
         //////////////////////////////////////////////////
 
         try{
-
             // LIST STUDENTS IN JSON FORMAT
             allStudents = dao.getAllStudents();
             String myJson = gson.toJson(allStudents);
@@ -79,9 +78,16 @@ public class DatabaseTester {
                 System.out.println("Row doesn't exist!");
             }
 
-            //TODO
-            //checkLoginCreditials(String,String)
-            //checkApiKey(String)
+            // Credentials check (There is one row in database with username: admin & password: admin)
+            if(dao.checkLoginCredentials("admin","admin")){
+                System.out.println("Credentials correct!");
+            }
+            else{
+                System.out.println("Credentials incorrect!");
+            }
+
+            // CheckApiKey(String)
+            System.out.println("Username 'admin' has apikey = "+dao.retrieveApiKey("admin"));
 
         }
         catch (SQLException e){

@@ -209,9 +209,56 @@ public class StudentDAO {
     }
 
     public Boolean checkLoginCredentials(String username, String password) throws SQLException {
-        //TODO
-        return false;
+        Connection dbConnection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        // Firstly check if user account exists and returns anything
+        String query = "SELECT * from users WHERE username = '"+username+"';";
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            resultset = statement.executeQuery(query);
+            resultset.next();
+            String dbPassword = resultset.getString("password");
+
+            if(password.equals(dbPassword)){
+                return true;
+            }
+            else{
+                closeConnection();
+                return false;
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
+    public String retrieveApiKey(String username) throws SQLException {
+        Connection dbConnection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+        String dbApiKey = "";
+
+        // Firstly check if user account exists and returns anything
+        String query = "SELECT apikey from users WHERE username = '"+username+"';";
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            resultset = statement.executeQuery(query);
+            resultset.next();
+            dbApiKey = resultset.getString("apikey");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        closeConnection();
+        return dbApiKey;
+    }
+
 
     public boolean checkApiKey(String key) throws SQLException {
         //TODO

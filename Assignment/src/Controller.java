@@ -15,6 +15,13 @@ public class Controller {
             server.createContext("/delete",new deleteHandler());
             server.createContext("/update",new updateHandler());
 
+            // handling login to db to retrieve api key
+            // login: admin
+            // password: admin
+            server.createContext("/login",new loginHandler());
+            server.createContext("/dbApi",new dbApiHandler());
+
+
             server.start();
             System.out.println("Server running on port 8000");
             System.out.println("To check the output please type in browser http://localhost:8000/");
