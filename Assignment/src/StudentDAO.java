@@ -93,6 +93,9 @@ public class StudentDAO {
             System.out.println(e.getMessage());
             return false;
         }
+        finally {
+            statement.close();
+        }
         closeConnection();
         return true;
     }
@@ -255,14 +258,42 @@ public class StudentDAO {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        statement.close();
+        resultset.close();
         closeConnection();
         return dbApiKey;
     }
 
 
-    public boolean checkApiKey(String key) throws SQLException {
-        //TODO
-        return false;
+    public boolean checkApiKey(int key) throws SQLException {
+        Connection dbConnection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+        String dbApiKey = "";
+        String query = "SELECT apikey from users WHERE apikey = '" + key + "';";
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            resultset = statement.executeQuery(query);
+            resultset.next();
+            String StringKey = String.valueOf(key);
+            dbApiKey = resultset.getString("apikey");
+
+            if (StringKey.equals(dbApiKey)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        finally {
+            statement.close();
+            resultset.close();
+            closeConnection();
+        }
     }
 
 }

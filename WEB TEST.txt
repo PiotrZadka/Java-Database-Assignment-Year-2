@@ -17,5 +17,4 @@ student={"studentNumber":15684574,"courseTitle":"Software Engineering","StartDat
 -getStudent(any id) from console WORKS!
 -getStudents() from console WORKS!
 -POST to /get-json-one-student from RESTClient WORKS! USE LINE BELOW (based on ID)
-StudentNumber = "any number"
-
+StudentNumber=123456

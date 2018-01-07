@@ -25,15 +25,32 @@ public class updateHandler implements HttpHandler {
         }
         StudentDAO dao = new StudentDAO();
         Student student = gson.fromJson(updateResult.get("student"),Student.class);
+        int apiKey = Integer.valueOf(updateResult.get("key"));
 
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
+
         try {
-            dao.updateStu(student);
-            he.sendResponseHeaders(200, 0); //HTTP 200 (OK)
-            out.write("Student updated!");
-        } catch (SQLException se) {
-            he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
-            out.write("Error updating Student");
+            if (dao.checkApiKey(apiKey))
+            {
+                try {
+                    dao.updateStu(student);
+                    he.sendResponseHeaders(200, 0); //HTTP 200 (OK)
+                    out.write("Student updated!");
+                } catch (SQLException se) {
+                    he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
+                    out.write("Error updating Student");
+                }
+                    }
+                    else
+                    {
+                        he.sendResponseHeaders(403, 0); //HTTP 403 (FORBIDDEN ACCESS)
+                        out.write("Invalid key!");
+                        out.close();
+                    }
+                }
+        catch (SQLException se)
+        {
+            se.printStackTrace();
         }
         out.close();
     }

@@ -2,10 +2,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,18 +27,31 @@ public class GetJsonOneStudentHandler implements HttpHandler {
             insertResult.put(URLDecoder.decode(pair.split("=")[0], "UTF-8"), URLDecoder.decode(pair.split("=")[1], "UTF-8"));
         }
         int studentID = Integer.valueOf(insertResult.get("StudentNumber"));
+        int apiKey = Integer.valueOf(insertResult.get("key"));
 
 
         try {
-            student = dao.getStudent(studentID);
-        } catch (SQLException e) {
+            if (dao.checkApiKey(apiKey)) {
+                try {
+                    student = dao.getStudent(studentID);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                String response = gson.toJson(student);
+                t.sendResponseHeaders(200, response.length());
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+            else
+            {
+                t.sendResponseHeaders(403, 0); //HTTP 403 (FORBIDDEN ACCESS)
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(t.getResponseBody()));
+                out.write("Invalid key!");
+                out.close();
+            }
+        }catch(SQLException e){
             e.printStackTrace();
         }
-        String response = gson.toJson(student);
-
-        t.sendResponseHeaders(200, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
     }
 }

@@ -18,6 +18,7 @@ public class Controller {
             // handling login to db to retrieve api key
             // login: admin
             // password: admin
+
             server.createContext("/login",new loginHandler());
             server.createContext("/dbApi",new dbApiHandler());
 

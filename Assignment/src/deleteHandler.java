@@ -25,15 +25,31 @@ public class deleteHandler implements HttpHandler {
         }
         StudentDAO dao = new StudentDAO();
         int studentNo = Integer.parseInt(deleteResult.get("ID"));
+        int apiKey = Integer.valueOf(deleteResult.get("key"));
 
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
         try {
-            dao.deleteStu(studentNo);
-            he.sendResponseHeaders(200, 0); //HTTP 200 (OK)
-            out.write("Student deleted!");
-        } catch (SQLException se) {
-            he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
-            out.write("Error deleting Student");
+            if (dao.checkApiKey(apiKey))
+            {
+                try {
+                    dao.deleteStu(studentNo);
+                    he.sendResponseHeaders(200, 0); //HTTP 200 (OK)
+                    out.write("Student deleted!");
+                } catch (SQLException se) {
+                    he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
+                    out.write("Error deleting Student");
+                }
+            }
+            else
+            {
+                he.sendResponseHeaders(403, 0); //HTTP 403 (FORBIDDEN ACCESS)
+                out.write("Invalid key!");
+                out.close();
+            }
+        }
+        catch (SQLException se)
+        {
+            se.printStackTrace();
         }
         out.close();
     }
