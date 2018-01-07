@@ -23,7 +23,12 @@ public class Student extends Person {
     }
 
     public void setStudentNumber(int studentNumber){
-        this.studentNumber = studentNumber;
+        if(Integer.toString(studentNumber).matches("^\\d{8}$")) {
+            this.studentNumber = studentNumber;
+        }
+        else{
+            throw new IllegalArgumentException("Student number is invalid (Valid ID contains 8 digits");
+        }
     }
 
     public String getCourseTitle(){
@@ -31,7 +36,13 @@ public class Student extends Person {
     }
 
     public void setCourseTitle(String courseTitle){
-        this.courseTitle = courseTitle;
+
+        if(courseTitle.matches(".*[a-zA-Z]+.*")) {
+            this.courseTitle = courseTitle;
+        }
+        else{
+            throw new IllegalArgumentException("Course Title must only contain alphabet letters");
+        }
     }
 
     public String getStartDate(){
@@ -39,7 +50,12 @@ public class Student extends Person {
     }
 
     public void setStartDate(String StartDate){
-        this.StartDate = StartDate;
+        if(StartDate.matches("^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$")) {
+            this.StartDate = StartDate;
+        }
+        else{
+            throw new IllegalArgumentException("Available Date format: DD.MM.YYYY or DD/MM/YYYY or DD-MM-YYYY");
+        }
     }
 
     public String getEmail(){
@@ -47,7 +63,12 @@ public class Student extends Person {
     }
 
     public void setEmail(String email){
-        this.email = email;
+        if(email.matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")){
+            this.email = email;
+        }
+        else{
+            throw new IllegalArgumentException("Email is invalid. Check for correct format i.e. email@email.com");
+        }
     }
 
     public float getBursary(){
@@ -55,7 +76,12 @@ public class Student extends Person {
     }
 
     public void setBursary(float bursary){
-        this.bursary = bursary;
+        if(Float.toString(bursary).matches("\\d+\\.\\d{1,2}")) {
+            this.bursary = bursary;
+        }
+        else{
+            throw new IllegalArgumentException("Bursary price is not valid. Correct format is 0.0 i.e. 1000.0f which is £1000.0 ");
+        }
     }
 
 

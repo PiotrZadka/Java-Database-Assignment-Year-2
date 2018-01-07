@@ -5,6 +5,8 @@ import java.net.InetSocketAddress;
 public class Controller {
     public static void main(String[] args) {
         try {
+
+            //HTTP HANDLERS
             HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
             server.createContext("/", new defaultHandler());
             server.createContext("/showall", new showAllHandler());
@@ -15,14 +17,13 @@ public class Controller {
             server.createContext("/delete",new deleteHandler());
             server.createContext("/update",new updateHandler());
 
-            // handling login to db to retrieve api key
+            // HANDLING LOGIN TO DB TO RETRIEVE API KEY
             // login: admin
             // password: admin
-
             server.createContext("/login",new loginHandler());
             server.createContext("/dbApi",new dbApiHandler());
 
-
+            // SERVER RUNNING
             server.start();
             System.out.println("Server running on port 8000");
             System.out.println("To check the output please type in browser http://localhost:8000/");
