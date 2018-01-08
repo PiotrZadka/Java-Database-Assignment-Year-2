@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class handles retrieving one student in REST Client via POST method in JSON format
+ */
 public class GetJsonOneStudentHandler implements HttpHandler {
     Gson gson = new Gson();
     Student student = new Student();

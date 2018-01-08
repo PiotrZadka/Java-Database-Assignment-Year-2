@@ -7,6 +7,10 @@ import java.io.OutputStreamWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles displaying all students from the database in nice HTML format.
+ * Please type http://localhost:8000/showall
+ */
 public class showAllHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
         final String head =

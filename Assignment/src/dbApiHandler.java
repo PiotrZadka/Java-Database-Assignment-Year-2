@@ -6,8 +6,14 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * This class handles HTTP login for retrieving API key from Database
+ */
+
 public class dbApiHandler implements HttpHandler {
+
     public void handle(HttpExchange he) throws IOException {
+
         HashMap<String,String> post = new HashMap<String,String>();
         // Read the request body
         BufferedReader in = new BufferedReader(new InputStreamReader(he.getRequestBody()));
@@ -42,6 +48,9 @@ public class dbApiHandler implements HttpHandler {
             }
         }
         catch (SQLException se) {
+            /**
+             * @exception Catches any SQL database error that might occur.
+             */
             he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
         }
         out.close();

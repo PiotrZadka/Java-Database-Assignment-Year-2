@@ -7,8 +7,15 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-
+/**
+ * This class handles restful deleting from database
+ */
 public class deleteHandler implements HttpHandler {
+    /**
+     * This method handles retrieving post request from REST client to delete specific student.
+     * @param he Stores http request for post method
+     * @throws IOException SQL error
+     */
     public void handle(HttpExchange he) throws IOException {
         Gson gson = new Gson();
         HashMap<String, String> deleteResult = new HashMap<String, String>();

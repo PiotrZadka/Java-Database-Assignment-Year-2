@@ -7,7 +7,15 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * This class handles restful updating in database
+ */
 public class updateHandler implements HttpHandler {
+    /**
+     * This method handles retrieving post request from REST client to update specific student.
+     * @param he Stores http request for post method
+     * @throws IOException SQL error
+     */
     public void handle(HttpExchange he) throws IOException {
         Gson gson = new Gson();
 

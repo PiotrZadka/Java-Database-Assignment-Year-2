@@ -2,11 +2,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 
+/**
+ * Database Tester Documentation
+ * @author Piotr Zadka 14056838
+ * This class tests entire StudentDAO methods and validation for Person and Student classes
+ */
 
 public class DatabaseTester {
     public static void main(String[] args) {
         ArrayList<Student> allStudents = new ArrayList<>();
         StudentDAO dao = new StudentDAO();
+        /**
+         * @param Gson is an open source Java library to serialize and deserialize Java objects to (and from) JSON.
+         */
         Gson gson = new Gson();
 
         // EXAMPLE STUDENTS OBJECTS FOR TESTING METHODS
@@ -36,11 +44,12 @@ public class DatabaseTester {
         System.out.println("Student ID = "+ValidationStudent.getStudentNumber()+"\nName = "+ValidationStudent.getName()+"\nCourse Title = "+ValidationStudent.getCourseTitle()+"\nStart Date = "+ValidationStudent.getStartDate()
                 +"\nEmail = "+ValidationStudent.getEmail()+"\nBursary = "+ValidationStudent.getBursary()+"\nGender = "+ValidationStudent.getGender()+"\nDate of Birth = "+ValidationStudent.getDob()
                 +"\nAddress = "+ValidationStudent.getAddress()+"\nPostcode = "+ValidationStudent.getPostcode());
-        System.out.println("///////////////////////////////////");
+        System.out.println("///////////////////////////////////\n");
 
         //////////////////////////////////////////////////
         // BELOW YOU CAN FIND ALL THE TESTING CALLOUTS
         //////////////////////////////////////////////////
+
         try{
             // LIST STUDENTS IN JSON FORMAT
             allStudents = dao.getAllStudents();
@@ -113,6 +122,9 @@ public class DatabaseTester {
 
         }
         catch (SQLException e){
+            /**
+             * @exception Catches any SQL database error that might occur.
+             */
             System.out.println("SQL exception: "+e.getMessage());
         }
 

@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-//TO FIX
+/**
+ * This class is not used anywhere. It suppose to handle displaying JSON format of one student but was unnecessary.
+ * Because it only handles post requests it's not possible to handle it in browser input box. such as ?parameter1&parameter2
+ * Left this class in case a Tutor would like to see my work being done.
+ *
+ */
 public class showStudentHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
 

@@ -1,10 +1,18 @@
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * This class handles all CRUD methods, Login Credentials check and API checking/retrieving.
+ */
+
 public class StudentDAO {
     Connection dbConnection = null;
     Statement s = null;
 
+    /**
+     * This method connects to our database
+     * @return connection to database is made
+     */
     public Connection getDBConnection() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -24,6 +32,9 @@ public class StudentDAO {
         return dbConnection;
     }
 
+    /**
+     * This method closes connection to database
+     */
     public void closeConnection(){
         try{
             if(s!=null){
@@ -39,6 +50,10 @@ public class StudentDAO {
         }
     }
 
+    /**
+     * This method retrieves all students in database
+     * @return Array List of all students in database
+     */
     public  ArrayList<Student> getAllStudents(){
         Connection dbConnection = null;
         Statement statement = null;
@@ -75,6 +90,12 @@ public class StudentDAO {
         return allStudents;
     }
 
+    /**
+     * This method inserts new Student object into our database
+     * @param newStudent Student object
+     * @return True if successful, False otherwise.
+     * @throws SQLException SQL errors
+     */
     public boolean insertStu(Student newStudent) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
@@ -100,6 +121,12 @@ public class StudentDAO {
         return true;
     }
 
+    /**
+     * This method deletes specific student based on provided ID
+     * @param stuNumber Student ID number
+     * @return True if successful, otherwise false.
+     * @throws SQLException SQL errors
+     */
     public boolean deleteStu(int stuNumber) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
@@ -131,6 +158,12 @@ public class StudentDAO {
         return true;
     }
 
+    /**
+     * This method returns specific student based on ID number
+     * @param stuNumber Students ID number
+     * @return Student Object
+     * @throws SQLException SQL Error
+     */
     public Student getStudent(int stuNumber) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
@@ -167,6 +200,12 @@ public class StudentDAO {
 
     }
 
+    /**
+     * This method updates specific students row in database
+     * @param newStudent Provided student object
+     * @return True if update is successful, otherwise false
+     * @throws SQLException SQL errors
+     */
     public boolean updateStu(Student newStudent) throws SQLException{
         Connection dbConnection = null;
         Statement statement = null;
@@ -211,6 +250,13 @@ public class StudentDAO {
         return true;
     }
 
+    /**
+     * This method handles user login in HTML form
+     * @param username Form username
+     * @param password Form password
+     * @return true if connection is made, otherwise false
+     * @throws SQLException SQL errors
+     */
     public Boolean checkLoginCredentials(String username, String password) throws SQLException {
         Connection dbConnection = null;
         Statement statement = null;
@@ -239,6 +285,13 @@ public class StudentDAO {
             return false;
         }
     }
+
+    /**
+     * This method retrieves API key from database
+     * @param username Form username provided by the user.
+     * @return String format of API key
+     * @throws SQLException SQL errors
+     */
     public String retrieveApiKey(String username) throws SQLException {
         Connection dbConnection = null;
         Statement statement = null;
@@ -264,7 +317,12 @@ public class StudentDAO {
         return dbApiKey;
     }
 
-
+    /**
+     * This method check if api key is valid
+     * @param key Api key provided by the user in REST post. ?key=
+     * @return true if matches post key value, otherwise false.
+     * @throws SQLException SQL errors
+     */
     public boolean checkApiKey(int key) throws SQLException {
         Connection dbConnection = null;
         Statement statement = null;
