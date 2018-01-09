@@ -24,6 +24,10 @@ public class Controller {
             server.createContext("/delete",new deleteHandler()); // Handle REST deleting
             server.createContext("/update",new updateHandler()); // Handle REST updating
 
+            // HANDLING CREATE ACCOUNT
+            server.createContext("/create",new createHandler());
+            server.createContext("/createAccount",new createAccountHandler());
+
             // HANDLING LOGIN TO DB TO RETRIEVE API KEY
             // login: admin
             // password: admin

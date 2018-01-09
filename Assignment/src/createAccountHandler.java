@@ -6,14 +6,8 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-/**
- * This class handles HTTP login for retrieving API key from Database
- */
-
-public class dbApiHandler implements HttpHandler {
-
+public class createAccountHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
-
         HashMap<String,String> post = new HashMap<String,String>();
         // Read the request body
         BufferedReader in = new BufferedReader(new InputStreamReader(he.getRequestBody()));
@@ -36,15 +30,14 @@ public class dbApiHandler implements HttpHandler {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(he.getResponseBody()));
 
         try{
-            if(dao.checkLoginCredentials(username,password)){
-                // Retrieve api key for that user
-                String api = dao.retrieveApiKey(username);
-                out.write("Api key for username "+username+" is "+api);
+            if(dao.createAccount(username,password)){
+                // Display successfull message
+                out.write("Account successfully created!");
                 he.sendResponseHeaders(200,0);
             }
             else{
-                out.write("Credentials Invalid");
-                he.sendResponseHeaders(200,0);
+                out.write("Account creation failed!");
+                he.sendResponseHeaders(400,0);
             }
         }
         catch (SQLException se) {
@@ -54,5 +47,6 @@ public class dbApiHandler implements HttpHandler {
             he.sendResponseHeaders(500, 0); //HTTP 500 (Internal Server Error)
         }
         out.close();
+
     }
 }

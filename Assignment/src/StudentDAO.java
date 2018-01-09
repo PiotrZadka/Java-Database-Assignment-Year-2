@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class handles all CRUD methods, Login Credentials check and API checking/retrieving.
@@ -344,6 +345,34 @@ public class StudentDAO {
                 return false;
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        finally {
+            statement.close();
+            resultset.close();
+            closeConnection();
+        }
+    }
+    public boolean createAccount(String username, String password) throws SQLException{
+        Connection dbConnection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        //Generate random api key
+        Random random = new Random();
+        int randomApi = random.nextInt(900) + 100;
+
+
+        String query = "INSERT INTO users (username,password,apikey) VALUES ('"+username+"','"+password+"','"+randomApi+"');";
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.executeUpdate(query);
+            return true;
+        }
+        catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
