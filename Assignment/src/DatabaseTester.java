@@ -29,11 +29,11 @@ public class DatabaseTester {
 
         // VALIDATION TEST
         Student ValidationStudent = new Student();
-        ValidationStudent.setName("Tester1");
+        ValidationStudent.setName("Tester");
         ValidationStudent.setGender("M");
         ValidationStudent.setStudentNumber(12345677);
-        ValidationStudent.setCourseTitle("TEST COURSE4");
-        ValidationStudent.setAddress("Test Street@");
+        ValidationStudent.setCourseTitle("TEST COURSE");
+        ValidationStudent.setAddress("Test Street");
         ValidationStudent.setPostcode("TE3 3ST");
         ValidationStudent.setStartDate("01/01/2018");
         ValidationStudent.setDob("02/02/2017");
