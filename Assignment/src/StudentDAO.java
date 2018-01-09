@@ -51,7 +51,6 @@ public class StudentDAO {
 
     /**
      * This method retrieves all students in database
-     *
      * @return Array List of all students in database
      */
     public ArrayList<Student> getAllStudents() {
@@ -354,6 +353,13 @@ public class StudentDAO {
         }
     }
 
+    /**
+     *
+     * @param username Username provided in create account form
+     * @param password Password provided in create account form
+     * @return return true if account is created, if any error occur return false.
+     * @throws SQLException SQL error
+     */
     public boolean createAccount(String username, String password) throws SQLException {
         Connection dbConnection = null;
         Statement statement = null;
